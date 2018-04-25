@@ -38,7 +38,7 @@ except ImportError:
 version = '0.16.dev0'
 
 # define which extensions to compile
-include_dirs = [np.get_include()]
+include_dirs = [np_get_include()]
 
 extensions = [
     Extension('madmom.audio.comb_filters', ['madmom/audio/comb_filters.pyx'],
