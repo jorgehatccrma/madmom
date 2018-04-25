@@ -26,7 +26,13 @@ except ImportError:
         
         
 import glob
-import numpy as np
+try:
+    from numpy import get_include as np_get_include
+except ImportError:
+    def np_get_include(*args, **kwargs):
+        from numpy import get_include
+        return get_include()
+
 
 # define version
 version = '0.16.dev0'
@@ -103,7 +109,7 @@ setup(name='madmom',
       package_data={'madmom': package_data},
       exclude_package_data={'': ['tests', 'docs']},
       scripts=scripts,
-      setup_requires=['cython'],
+      setup_requires=['cython>=0.25', 'numpy>=1.8.1',],
       install_requires=requirements,
       cmdclass={'build_ext': build_ext},
       test_suite='nose.collector',
