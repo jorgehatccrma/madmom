@@ -9,8 +9,22 @@ This file contains the setup for setuptools to distribute everything as a
 from setuptools import setup, find_packages
 from distutils.extension import Extension
 
-from Cython.Build import cythonize, build_ext
+# Hack so setup_requires work when installing madmom using pip
+try:
+    from Cython.Build import cythonize
+except ImportError:
+     def cythonize(*args, **kwargs):
+         from Cython.Build import cythonize
+         return cythonize(*args, **kwargs)
+try:
+    from Cython.Build import build_ext
+except ImportError:
+     def build_ext(*args, **kwargs):
+         from Cython.Build import build_ext
+         return build_ext(*args, **kwargs)
 
+        
+        
 import glob
 import numpy as np
 
